@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ipmedt4/pages/login_page.dart';
+import 'package:ipmedt4/pages/register_page.dart';
 
 import 'firebase_options.dart';
 
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginPage(title: 'Flutter Demo Home Page'),
+      home: const RegisterPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
