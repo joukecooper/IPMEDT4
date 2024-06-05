@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "659809467218",
+    "project_id": "ipmedt4-groep10",
+    "storage_bucket": "ipmedt4-groep10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659809467218:android:78024120bb29534631d88b",
+        "android_client_info": {
+          "package_name": "com.example.ipmedt4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf9OvW7p2t4z_qK8Y0uBaeU8gEvUgigpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
