@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ipmedt4/pages/login_page.dart';
+import 'package:ipmedt4/pages/map_page.dart';
 import 'package:ipmedt4/services/auth_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,28 +31,39 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          // TRY THIS: Try changing the color here to a specific color (to
-          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-          // change color while the other colors stay the same.
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(_auth.getUser()?.email ?? "User not found"),
-        ),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () => {_auth.logout()},
-            child: Text("Logout"),
-          ),
-        ));
+  void dispose() {
+    _loginSubscription.cancel();
+    super.dispose();
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _loginSubscription.cancel();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(_auth.getUser()?.email ?? "User not found"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MapPage()), // Navigeer naar MapPage
+                );
+              },
+              child: Text("Open Map"),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => {_auth.logout()},
+              child: Text("Logout"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
