@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import '../pages/profiel.dart';
+import '../pages/home_page.dart';
+import '../pages/login_page.dart';
+
+int currentPageIndex = 0;
 
 class Footer extends StatefulWidget {
   const Footer({super.key});
@@ -8,7 +13,6 @@ class Footer extends StatefulWidget {
 }
 
 class _FooterState extends State<Footer> {
-  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +44,25 @@ class _FooterState extends State<Footer> {
         setState(() {
           currentPageIndex = index;
         });
+        switch(index) {
+          case 0:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+            break;
+          case 3:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Profiel()),
+            );
+            break;
+          default:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage(title: "Joejoe")),
+            );
+        }
       },
       selectedIndex: currentPageIndex,
     );

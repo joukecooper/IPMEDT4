@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ipmedt4/pages/home_page.dart';
 import 'package:ipmedt4/services/auth_service.dart';
-import '../components/footer.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -79,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-        bottomNavigationBar: const Footer()
     );
   }
 }
