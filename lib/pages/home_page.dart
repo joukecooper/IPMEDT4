@@ -1,8 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ipmedt4/pages/login_page.dart';
 import 'package:ipmedt4/services/auth_service.dart';
+import '../themedata.dart';
+
+import '../components/header.dart';
+import '../components/footer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,46 +18,79 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _auth = AuthService();
-
-  late StreamSubscription _loginSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-    _loginSubscription = _auth.listenToUser().listen((user) {
-      if (user == null) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => LoginPage(title: "Je bent uitgelogd")));
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          // TRY THIS: Try changing the color here to a specific color (to
-          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-          // change color while the other colors stay the same.
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(_auth.getUser()?.email ?? "User not found"),
-        ),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () => {_auth.logout()},
-            child: Text("Logout"),
-          ),
-        ));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _loginSubscription.cancel();
+      appBar: const Header(),
+      bottomNavigationBar: const Footer(),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 24,
+          mainAxisSpacing: 24,
+          children: [
+            Card (
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Icon(
+                      color: secondaryColor.withOpacity(0.5),
+                      size: 100.0,
+                      Icons.attach_money_rounded,
+                    )
+                  ),
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "24",
+                      style: TextStyle(fontSize: 80)
+                    ),
+                  ),
+                  const Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      "Munten",
+                    )
+                  )
+                ]
+              ),
+            ),
+            Card(
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Icon(
+                      color: secondaryColor.withOpacity(0.5),
+                      size: 100.0,
+                      Icons.local_fire_department_rounded,
+                    )
+                  ),
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "5",
+                      style: TextStyle(fontSize: 80)
+                    ),
+                  ),
+                  const Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      "Dagen streak",
+                    )
+                  )
+                ]
+              ),
+            ),
+            const Card(
+              child: Text("Joejoe"),
+            )
+          ]
+        )
+      ),
+    );
   }
 }
