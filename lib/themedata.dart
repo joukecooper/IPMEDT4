@@ -52,5 +52,14 @@ ThemeData buildCustomTheme() {
           fontWeight: FontWeight.w500
       ),
     ),
+    cardTheme: CardTheme(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+        side: const BorderSide(
+          color: secondaryColor,
+          width: 4.0,
+        ),
+      ),
+    )
   );
 }
