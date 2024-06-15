@@ -3,6 +3,31 @@ import 'package:flutter/material.dart';
 import '../components/header.dart';
 import '../components/footer.dart';
 
+
+//LET OP, volg dit: https://medium.com/@ashishpimpre/how-to-fetch-data-from-an-api-and-display-it-in-listview-in-flutter-770863f85959
+
+
+class Player {
+  int? id;
+  String username = "Pipo";
+  String? profilePic;
+  int coinCount = 0;
+
+  Player({
+    this.id,
+    required this.username,
+    this.profilePic,
+    required this.coinCount
+  });
+
+  Player.fromJson(Map<String, dynamic> json) {
+  id = json['id'];
+  username = json['username'];
+  profilePic = json['picture'];
+  coinCount = json['coins'];
+  }
+}
+
 class Leaderboard extends StatelessWidget {
   const Leaderboard({super.key});
 
