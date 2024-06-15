@@ -29,7 +29,13 @@ class Player {
 }
 
 class Leaderboard extends StatelessWidget {
-  const Leaderboard({super.key});
+  Leaderboard({super.key});
+
+  final List<Player> players = [
+    Player(id: 1, username: "Pipo", coinCount: 12),
+    Player(id: 2, username: "Ado", coinCount: 10),
+    Player(id: 3, username: "Olaf", coinCount: 9)
+  ];
 
   @override
   Widget build(BuildContext context) {
