@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../pages/profiel.dart';
 import '../pages/home_page.dart';
+import '../pages/leaderboard.dart';
+import '../pages/profiel.dart';
 import '../pages/login_page.dart';
 
 int currentPageIndex = 0;
@@ -49,6 +50,12 @@ class _FooterState extends State<Footer> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+            break;
+          case 2:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Leaderboard()),
             );
             break;
           case 3:
