@@ -25,72 +25,79 @@ class _HomePageState extends State<HomePage> {
       appBar: const Header(),
       bottomNavigationBar: const Footer(),
       body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: GridView.count(
-          crossAxisCount: 2,
-          crossAxisSpacing: 24,
-          mainAxisSpacing: 24,
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Card (
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Icon(
-                      color: secondaryColor.withOpacity(0.5),
-                      size: 100.0,
-                      Icons.attach_money_rounded,
-                    )
+            Expanded(
+              flex: 1,
+              child: Row( children: [
+                Expanded(
+                  child: Card(
+                    child: Stack(children: [
+                      Align(
+                          alignment: Alignment.topRight,
+                          child: Icon(
+                            color: secondaryColor.withOpacity(0.5),
+                            size: 100.0,
+                            Icons.attach_money_rounded,
+                          )),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text("24", style: TextStyle(fontSize: 80)),
+                      ),
+                      const Align(
+                          alignment: Alignment.bottomRight,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 10.0, bottom: 2.0),
+                            child: Text("Munten"),
+                          )
+                      )
+                    ]),
                   ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "24",
-                      style: TextStyle(fontSize: 80)
-                    ),
+                ),
+                Expanded(
+                  child: Card(
+                    child: Stack(children: [
+                      Align(
+                          alignment: Alignment.topRight,
+                          child: Icon(
+                            color: secondaryColor.withOpacity(0.5),
+                            size: 100.0,
+                            Icons.local_fire_department_rounded,
+                          )),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text("5", style: TextStyle(fontSize: 80)),
+                      ),
+                      const Align(
+                          alignment: Alignment.bottomRight,
+                          child: Padding(
+                              padding: EdgeInsets.only(right: 10.0, bottom: 2.0),
+                              child: Text("Dagen streak")))
+                    ]),
                   ),
-                  const Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      "Munten",
-                    )
-                  )
-                ]
+                ),
+              ],),
+            ),
+            const Expanded(
+              flex: 2,
+              child: Card(
+                child: Text("Stats"),
               ),
             ),
-            Card(
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Icon(
-                      color: secondaryColor.withOpacity(0.5),
-                      size: 100.0,
-                      Icons.local_fire_department_rounded,
-                    )
-                  ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "5",
-                      style: TextStyle(fontSize: 80)
-                    ),
-                  ),
-                  const Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      "Dagen streak",
-                    )
-                  )
-                ]
+            const Center(
+              child: SizedBox(
+                height: 50,
+                width: 150,
+                child: Card(
+                  child: Text("Wandel nu!")
+                ),
               ),
             ),
-            const Card(
-              child: Text("Joejoe"),
-            )
-          ]
-        )
-      ),
+          ],
+        ),
+      )
     );
   }
 }
