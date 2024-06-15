@@ -62,11 +62,62 @@ class Leaderboard extends StatelessWidget {
                 ),
               ]
             ),
-            Expanded( child: Card(
-                child: Text("Lijst")
-            ))
-          ]
-        )
+            Expanded(
+              child: Card(
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: players.length,
+                  itemBuilder: (context, index) {
+                    final player = players[index];
+                    return Container(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const SizedBox(width: 5),
+                          Container(
+                            width: 34,
+                            height: 34,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(50)),
+                              border: Border.all(
+                                color: secondaryColor,
+                                width: 2,
+                              )
+                            ),
+                            child: Center(child: Text((index + 1).toString()))
+                          ),
+                          const SizedBox(width: 5),
+                          player.profilePic != null && player.profilePic!.isNotEmpty
+                          ? CircleAvatar(
+                            radius: 17,
+                            backgroundImage: NetworkImage(player.profilePic!),
+                          )
+                          : const Icon(
+                            color: secondaryColor,
+                            size: 40,
+                            Icons.account_circle_rounded,
+                          ),
+                          const SizedBox(width: 5),
+                          Expanded(child: Text(player.username)),
+                          const SizedBox(width: 5),
+                          const Icon(
+                            color: secondaryColor,
+                            Icons.attach_money_rounded
+                          ),
+                          SizedBox(
+                            width: 20,
+                            child: Text(player.coinCount.toString())
+                          ),
+                          const SizedBox(width: 5),
+                        ]
+                      ),
+                    );
+                  },
+                ),
+              ),
+            )
+        ])
       )
     );
   }
