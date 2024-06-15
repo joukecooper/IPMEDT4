@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^5.0.0
   google_fonts: ^6.2.1
   spannable_grid: ^0.3.0
+  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:

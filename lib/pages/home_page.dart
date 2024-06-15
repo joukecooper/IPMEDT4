@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:ipmedt4/pages/login_page.dart';
-import 'package:ipmedt4/services/auth_service.dart';
+import 'package:fl_chart/fl_chart.dart';
+
 import '../themedata.dart';
 
 import '../components/header.dart';
@@ -18,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

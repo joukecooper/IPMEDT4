@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:ipmedt4/themedata.dart';
+
 import '../components/header.dart';
 import '../components/footer.dart';
 
@@ -39,15 +41,14 @@ class Leaderboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: Header(),
-      bottomNavigationBar: Footer(),
+    return Scaffold(
+      appBar: const Header(),
+      bottomNavigationBar: const Footer(),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
