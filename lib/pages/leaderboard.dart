@@ -41,6 +41,8 @@ class Leaderboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final VoidCallback? onPressed = () {}; //TODO: weghalen als knoppen ergens naar verwijzen
+
     return Scaffold(
       appBar: const Header(),
       bottomNavigationBar: const Footer(),
@@ -48,18 +50,22 @@ class Leaderboard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: Column(
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                    height: 50,
-                    width: 90,
-                    child: Card( child: Text("Wereld") )
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: FilledButton(
+                    onPressed: onPressed,
+                    child: const Text("Wereld")
+                  ),
                 ),
-                SizedBox(
-                    height: 50,
-                    width: 90,
-                    child: Card( child: Text("Vrienden") )
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: OutlinedButton(
+                      onPressed: onPressed,
+                      child: const Text("Vrienden")
+                  ),
                 ),
               ]
             ),

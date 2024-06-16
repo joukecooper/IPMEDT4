@@ -83,13 +83,14 @@ class _HomePageState extends State<HomePage> {
                 child: Text("Stats"),
               ),
             ),
-            const Center(
+            Center(
               child: SizedBox(
                 height: 50,
                 width: 150,
-                child: Card(
-                  child: Text("Wandel nu!")
-                ),
+                child: FilledButton(
+                    onPressed: () {}, //TODO: veranderen als kaartpagina aanwezig
+                    child: const Text("Wandel nu!")
+                )
               ),
             ),
           ],
