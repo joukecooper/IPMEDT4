@@ -21,7 +21,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             Navigator.push(context, MaterialPageRoute<void>(
               builder: (BuildContext context) {
-                return Profiel();
+                return const Profiel();
               },
             ));
           },

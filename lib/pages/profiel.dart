@@ -6,12 +6,13 @@ import '../components/header.dart';
 import '../components/footer.dart';
 
 class Profiel extends StatelessWidget {
-
+  const Profiel({super.key});
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const Header(),
-      bottomNavigationBar: const Footer(),
+    return const Scaffold(
+      appBar: Header(),
+      bottomNavigationBar: Footer(),
       body: Center(
           child: Text("Logout"),
       ),
