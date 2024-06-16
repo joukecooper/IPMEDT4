@@ -60,6 +60,29 @@ ThemeData buildCustomTheme() {
           width: 4.0,
         ),
       ),
-    )
+    ),
+    filledButtonTheme: FilledButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(accentColor),
+        foregroundColor: MaterialStateProperty.all(primaryColor),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+          )
+        )
+      )
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(secondaryColor),
+        foregroundColor: MaterialStateProperty.all(accentColor),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            side: BorderSide(color: accentColor)
+          )
+        )
+      )
+    ),
   );
 }
