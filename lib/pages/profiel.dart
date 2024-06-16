@@ -37,7 +37,7 @@ class _HomePageState extends State<Profiel> {
         appBar: const Header(),
         bottomNavigationBar: const Footer(),
         body: Center(
-          child: ElevatedButton(
+          child: FilledButton(
             onPressed: () => {_auth.logout()},
             child: const Text("Logout"),
           ),
