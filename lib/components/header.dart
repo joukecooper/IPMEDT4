@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/profiel.dart';
+import '../pages/account_page.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
   const Header({super.key});
@@ -21,7 +21,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             Navigator.push(context, MaterialPageRoute<void>(
               builder: (BuildContext context) {
-                return const Profiel();
+                return const AccountPage();
               },
             ));
           },
