@@ -2,19 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ipmedt4/pages/home_page.dart';
-import 'package:ipmedt4/pages/register_page.dart';
+import 'package:ipmedt4/pages/login_page.dart';
 import 'package:ipmedt4/services/auth_service.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required this.title});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   final _auth = AuthService();
@@ -82,26 +82,33 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  await _auth.loginUser(
+                  await _auth.registerUser(
                       _emailController.text, _passwordController.text);
+                  await _auth.logout(); // Log de gebruiker uit na registratie
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(title: 'Login Page'),
+                    ),
+                  );
                 },
-                child: Text("Login"),
+                child: Text("Registreer"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                   minimumSize: Size(double.infinity, 50),
                 ),
               ),
               SizedBox(height: 20), // Voeg ruimte toe tussen de knoppen en de tekst
-              Text("Nog geen account?"),
+              Text("Al een account?"),
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RegisterPage(title: 'Register Page')),
+                    MaterialPageRoute(builder: (context) => LoginPage(title: 'Login Page')),
                   );
                 },
                 child: Text(
-                  'Registreer hier',
+                  'Log hier in',
                   style: TextStyle(
                     color: Colors.blue,
                     decoration: TextDecoration.underline,

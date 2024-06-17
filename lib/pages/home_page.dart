@@ -7,6 +7,9 @@ import '../themedata.dart';
 
 import '../components/header.dart';
 import '../components/footer.dart';
+import 'package:ipmedt4/pages/login_page.dart';
+import 'package:ipmedt4/pages/map_page.dart';
+import 'package:ipmedt4/services/auth_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
