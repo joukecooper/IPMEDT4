@@ -3,6 +3,7 @@ import '../pages/home_page.dart';
 import '../pages/leaderboard.dart';
 import '../pages/profiel.dart';
 import '../pages/login_page.dart';
+import '../pages/map_page.dart';
 
 int currentPageIndex = 0;
 
@@ -50,6 +51,12 @@ class _FooterState extends State<Footer> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+            break;
+          case 1:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MapPage()),
             );
             break;
           case 2:
