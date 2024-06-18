@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../components/footer.dart';
 
 class StorePage extends StatefulWidget {
@@ -14,34 +15,91 @@ class _StorePageState extends State<StorePage> {
     {
       'name': 'Premium Version',
       'price': 2.99,
-      'image': 'https://www.wereldwijdwandelen.nl/wp-content/uploads/2023/05/beste-goedkope-wandelschoenen-2.png',
+      'image': 'https://www.mykees.com/wp-content/uploads/2023/01/beste-wandelschoenen-868wig-1.jpg',
       'isPremium': true,
     },
     {
       'name': 'Item 1',
       'price': 200,
-      'image': 'https://via.placeholder.com/100',
+      'image': 'https://www.wereldwijdwandelen.nl/wp-content/uploads/2023/05/beste-goedkope-wandelschoenen-2.png',
       'isPremium': false,
     },
     {
       'name': 'Item 2',
       'price': 200,
-      'image': 'https://via.placeholder.com/100',
+      'image': 'https://www.mykees.com/wp-content/uploads/2023/01/beste-wandelschoenen-868wig-1.jpg',
       'isPremium': false,
     },
     {
       'name': 'Item 3',
       'price': 200,
-      'image': 'https://via.placeholder.com/100',
+      'image': 'https://vienta.nl/wp-content/uploads/My-project-1-14.png',
       'isPremium': false,
     },
     {
       'name': 'Item 4',
       'price': 200,
-      'image': 'https://via.placeholder.com/100',
+      'image': 'https://www.bfgcdn.com/1500_1500_90/103-1245-0111/stoic-womens-nordmarkst-hoody-softshelljack.jpg',
       'isPremium': false,
     },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCoins();
+  }
+
+  Future<void> _loadCoins() async {
+    try {
+      final fetchedCoins = await fetchCoins();
+      setState(() {
+        coins = fetchedCoins;
+      });
+    } catch (e) {
+      print('Failed to fetch coins: $e');
+    }
+  }
+
+  Future<int> fetchCoins() async {
+    final url = Uri.parse('http://dsf-server.nl/api/user/1/coins');
+
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data['coins'];
+      } else {
+        throw Exception('Failed to load coins');
+      }
+    } catch (e) {
+      throw Exception('Failed to load coins: $e');
+    }
+  }
+
+  Future<void> purchaseItem(int price) async {
+    final url = Uri.parse('http://dsf-server.nl/api/user/1/coins');
+    final body = json.encode({'coins': price});
+
+    try {
+      final response = await http.delete(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        await _loadCoins();
+      } else {
+        throw Exception('Failed to purchase item');
+      }
+    } catch (e) {
+      print('Failed to purchase item: $e');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to purchase item!'),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,13 +187,10 @@ class _StorePageState extends State<StorePage> {
             ),
             SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
-                // Buy item logic
+              onPressed: () async {
                 int price = item['price'];
                 if (coins >= price) {
-                  setState(() {
-                    coins -= price;
-                  });
+                  await purchaseItem(price);
                 } else {
                   // Show insufficient coins message
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(

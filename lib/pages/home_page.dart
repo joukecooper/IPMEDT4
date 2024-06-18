@@ -1,24 +1,53 @@
-import 'dart:async';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:http/http.dart' as http;
 
 import '../themedata.dart';
-
 import '../components/header.dart';
 import '../components/footer.dart';
-import 'package:ipmedt4/pages/login_page.dart';
-import 'package:ipmedt4/pages/map_page.dart';
-import 'package:ipmedt4/services/auth_service.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  int coins = 0;
+  int streakCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadStats();
+  }
+
+  Future<void> _loadStats() async {
+    try {
+      final coinsUrl = Uri.parse('http://dsf-server.nl/api/user/1/coins');
+      final streakUrl = Uri.parse('http://dsf-server.nl/api/user/1/streak_count');
+
+      final coinsResponse = await http.get(coinsUrl);
+      final streakResponse = await http.get(streakUrl);
+
+      if (coinsResponse.statusCode == 200 && streakResponse.statusCode == 200) {
+        final coinsData = json.decode(coinsResponse.body);
+        final streakData = json.decode(streakResponse.body);
+
+        setState(() {
+          coins = coinsData['coins'];
+          streakCount = streakData['streak_count'];
+        });
+      } else {
+        throw Exception('Failed to load stats');
+      }
+    } catch (e) {
+      print('Error loading stats: $e');
+      // Handle error if necessary
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,74 +60,92 @@ class _HomePageState extends State<HomePage> {
           children: [
             Expanded(
               flex: 1,
-              child: Row( children: [
-                Expanded(
-                  child: Card(
-                    child: Stack(children: [
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: Icon(
-                            color: secondaryColor.withOpacity(0.5),
-                            size: 100.0,
-                            Icons.attach_money_rounded,
-                          )),
-                      const Align(
-                        alignment: Alignment.center,
-                        child: Text("24", style: TextStyle(fontSize: 80)),
-                      ),
-                      const Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 10.0, bottom: 2.0),
-                            child: Text("Munten"),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Icon(
+                              Icons.attach_money_rounded,
+                              color: secondaryColor.withOpacity(0.5),
+                              size: 100.0,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '$coins',
+                              style: TextStyle(fontSize: 80),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0, bottom: 2.0),
+                              child: Text("Munten"),
+                            ),
                           )
-                      )
-                    ]),
-                  ),
-                ),
-                Expanded(
-                  child: Card(
-                    child: Stack(children: [
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: Icon(
-                            color: secondaryColor.withOpacity(0.5),
-                            size: 100.0,
-                            Icons.local_fire_department_rounded,
-                          )),
-                      const Align(
-                        alignment: Alignment.center,
-                        child: Text("5", style: TextStyle(fontSize: 80)),
+                        ],
                       ),
-                      const Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                              padding: EdgeInsets.only(right: 10.0, bottom: 2.0),
-                              child: Text("Dagen streak")))
-                    ]),
+                    ),
                   ),
-                ),
-              ],),
+                  Expanded(
+                    child: Card(
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Icon(
+                              Icons.local_fire_department_rounded,
+                              color: secondaryColor.withOpacity(0.5),
+                              size: 100.0,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '$streakCount',
+                              style: TextStyle(fontSize: 80),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0, bottom: 2.0),
+                              child: Text("Dagen streak"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const Expanded(
+            Expanded(
               flex: 2,
               child: Card(
-                child: Text("Stats"),
+                child: Text("Stats"), // Placeholder for stats
               ),
             ),
             Center(
               child: SizedBox(
                 height: 50,
                 width: 150,
-                child: FilledButton(
-                    onPressed: () {}, //TODO: veranderen als kaartpagina aanwezig
-                    child: const Text("Wandel nu!")
-                )
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Handle button press
+                  },
+                  child: const Text("Wandel nu!"),
+                ),
               ),
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }
