@@ -53,6 +53,12 @@ class _FooterState extends State<Footer> {
               MaterialPageRoute(builder: (context) => const HomePage()),
             );
             break;
+          case 1:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MapPage()),
+            );
+            break;
           case 2:
             Navigator.push(
               context,
