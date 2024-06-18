@@ -35,7 +35,7 @@ class _MapPageState extends State<MapPage> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       loadGpxData('Route 1');
-      getCurrentUserID(); // Roep getCurrentUserID aan bij het initialiseren van de pagina
+      getCurrentUserID();
     });
   }
 
@@ -71,6 +71,7 @@ class _MapPageState extends State<MapPage> {
     }
 
     // Debugging
+    print(currentUserID);
     print('Polyline Points for $route: $polylinePoints');
   }
 

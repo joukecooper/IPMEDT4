@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../components/footer.dart';
+import '../services/auth_service.dart';
 
 class StorePage extends StatefulWidget {
   @override
@@ -10,12 +11,15 @@ class StorePage extends StatefulWidget {
 
 class _StorePageState extends State<StorePage> {
   int coins = 0; // Base value of coins
+  String? currentUserID;
 
   final List<Map<String, dynamic>> storeItems = [
     {
       'name': 'Premium Version',
       'price': 2.99,
       'image': 'https://image.similarpng.com/very-thumbnail/2020/08/Golden-crown-design-Premium-vector-PNG.png',
+      'image':
+      'https://www.wereldwijdwandelen.nl/wp-content/uploads/2023/05/beste-goedkope-wandelschoenen-2.png',
       'isPremium': true,
     },
     {
@@ -99,6 +103,17 @@ class _StorePageState extends State<StorePage> {
         content: Text('Failed to purchase item!'),
       ));
     }
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      getCurrentUserID();
+    });
+  }
+
+  Future<void> getCurrentUserID() async {
+    final authService = AuthService();
+    final uid = await authService.getCurrentUID();
+    setState(() {
+      currentUserID = uid;
+    });
   }
 
   @override
@@ -106,14 +121,14 @@ class _StorePageState extends State<StorePage> {
     return Scaffold(
       bottomNavigationBar: const Footer(),
       appBar: AppBar(
-        title: Text('Store Page'),
+        title: const Text('Store Page'),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
                 'Coins: $coins',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
             ),
           ),
@@ -148,7 +163,7 @@ class _StorePageState extends State<StorePage> {
         leading: Image.network(item['image']),
         title: Text(
           item['name'],
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         subtitle: Text('\$${item['price']}/month'),
         trailing: ElevatedButton(
@@ -156,9 +171,10 @@ class _StorePageState extends State<StorePage> {
             // Buy premium version logic
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Colors.blue, // foreground color
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.blue,
           ),
-          child: Text('Buy'),
+          child: const Text('Buy'),
         ),
       ),
     );
@@ -173,7 +189,7 @@ class _StorePageState extends State<StorePage> {
           children: <Widget>[
             Text(
               item['name'],
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Image.network(
               item['image'],
@@ -183,7 +199,7 @@ class _StorePageState extends State<StorePage> {
             ),
             Text(
               '${item['price']} Coins',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             ElevatedButton(
@@ -194,14 +210,15 @@ class _StorePageState extends State<StorePage> {
                 } else {
                   // Show insufficient coins message
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Not enough coins!'),
+                    content: const Text('Not enough coins!'),
                   ));
                 }
               },
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.green, // foreground color
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.green,
               ),
-              child: Text('Buy'),
+              child: const Text('Buy'),
             ),
           ],
         ),
