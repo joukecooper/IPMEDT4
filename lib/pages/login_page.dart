@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import '../themedata.dart';
 import 'package:flutter/material.dart';
 import 'package:ipmedt4/pages/home_page.dart';
 import 'package:ipmedt4/pages/register_page.dart';
@@ -41,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -57,7 +57,15 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green,
+                  color: accentColor,
+                ),
+              ),
+              Text(
+                'Login',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: tertiaryColor,
                 ),
               ),
               SizedBox(height: 40),
@@ -87,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: Text("Login"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: accentColor,
                   minimumSize: Size(double.infinity, 50),
                 ),
               ),
@@ -103,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   'Registreer hier',
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: accentColor,
                     decoration: TextDecoration.underline,
                   ),
                 ),

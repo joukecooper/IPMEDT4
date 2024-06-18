@@ -135,12 +135,15 @@ class _HomePageState extends State<HomePage> {
               child: SizedBox(
                 height: 50,
                 width: 150,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle button press
-                  },
-                  child: const Text("Wandel nu!"),
-                ),
+                child: FilledButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MapPage()), // Navigeer naar MapPage
+                      );
+                    },
+                    child: const Text("Wandel nu!")
+                )
               ),
             ),
           ],
