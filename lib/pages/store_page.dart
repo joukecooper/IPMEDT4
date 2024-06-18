@@ -18,8 +18,6 @@ class _StorePageState extends State<StorePage> {
       'name': 'Premium Version',
       'price': 2.99,
       'image': 'https://image.similarpng.com/very-thumbnail/2020/08/Golden-crown-design-Premium-vector-PNG.png',
-      'image':
-      'https://www.wereldwijdwandelen.nl/wp-content/uploads/2023/05/beste-goedkope-wandelschoenen-2.png',
       'isPremium': true,
     },
     {
@@ -51,7 +49,21 @@ class _StorePageState extends State<StorePage> {
   @override
   void initState() {
     super.initState();
-    _loadCoins();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      getCurrentUserID();
+    });
+  }
+
+  Future<void> getCurrentUserID() async {
+    final authService = AuthService();
+    final uid = await authService.getCurrentUID();
+    setState(() {
+      currentUserID = uid;
+    });
+
+    if (currentUserID != null) {
+      _loadCoins();
+    }
   }
 
   Future<void> _loadCoins() async {
@@ -66,7 +78,7 @@ class _StorePageState extends State<StorePage> {
   }
 
   Future<int> fetchCoins() async {
-    final url = Uri.parse('http://dsf-server.nl/api/user/1/coins');
+    final url = Uri.parse('http://dsf-server.nl/api/user/$currentUserID/coins');
 
     try {
       final response = await http.get(url);
@@ -82,7 +94,7 @@ class _StorePageState extends State<StorePage> {
   }
 
   Future<void> purchaseItem(int price) async {
-    final url = Uri.parse('http://dsf-server.nl/api/user/1/coins');
+    final url = Uri.parse('http://dsf-server.nl/api/user/$currentUserID/coins');
     final body = json.encode({'coins': price});
 
     try {
@@ -105,14 +117,6 @@ class _StorePageState extends State<StorePage> {
     }
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       getCurrentUserID();
-    });
-  }
-
-  Future<void> getCurrentUserID() async {
-    final authService = AuthService();
-    final uid = await authService.getCurrentUID();
-    setState(() {
-      currentUserID = uid;
     });
   }
 

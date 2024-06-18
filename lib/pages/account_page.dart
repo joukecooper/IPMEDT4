@@ -38,6 +38,8 @@ class _AccountPageState extends State<AccountPage> {
     setState(() {
       currentUserID = uid;
     });
+
+    print('Current User ID in AccountPage: $currentUserID');
   }
 
   @override

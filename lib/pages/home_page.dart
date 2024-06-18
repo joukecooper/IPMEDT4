@@ -6,6 +6,7 @@ import '../themedata.dart';
 import '../components/header.dart';
 import '../components/footer.dart';
 import 'map_page.dart';
+import '../services/auth_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,17 +18,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int coins = 0;
   int streakCount = 0;
+  String? currentUserID;
 
   @override
   void initState() {
     super.initState();
+    getCurrentUserID();
     _loadStats();
   }
 
+  Future<void> getCurrentUserID() async {
+    final authService = AuthService();
+    final uid = await authService.getCurrentUID();
+    setState(() {
+      currentUserID = uid;
+    });
+  }
+
   Future<void> _loadStats() async {
+    if (currentUserID == null) return;
+
     try {
-      final coinsUrl = Uri.parse('http://dsf-server.nl/api/user/1/coins');
-      final streakUrl = Uri.parse('http://dsf-server.nl/api/user/1/streak_count');
+      final coinsUrl = Uri.parse('http://dsf-server.nl/api/user/$currentUserID/coins');
+      final streakUrl = Uri.parse('http://dsf-server.nl/api/user/$currentUserID/streak_count');
 
       final coinsResponse = await http.get(coinsUrl);
       final streakResponse = await http.get(streakUrl);
@@ -137,14 +150,14 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
                 width: 150,
                 child: FilledButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MapPage()), // Navigeer naar MapPage
-                      );
-                    },
-                    child: const Text("Wandel nu!")
-                )
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MapPage()), // Navigeer naar MapPage
+                    );
+                  },
+                  child: const Text("Wandel nu!"),
+                ),
               ),
             ),
           ],
