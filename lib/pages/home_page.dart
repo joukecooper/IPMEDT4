@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../themedata.dart';
 import '../components/header.dart';
 import '../components/footer.dart';
+import 'map_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

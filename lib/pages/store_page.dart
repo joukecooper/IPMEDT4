@@ -15,7 +15,7 @@ class _StorePageState extends State<StorePage> {
     {
       'name': 'Premium Version',
       'price': 2.99,
-      'image': 'https://www.mykees.com/wp-content/uploads/2023/01/beste-wandelschoenen-868wig-1.jpg',
+      'image': 'https://image.similarpng.com/very-thumbnail/2020/08/Golden-crown-design-Premium-vector-PNG.png',
       'isPremium': true,
     },
     {
