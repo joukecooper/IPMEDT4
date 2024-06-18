@@ -11,16 +11,10 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  bool setting1 = false;
-  bool setting2 = false;
-  bool setting3 = false;
-  bool setting4 = false;
-
+  String username = 'User Name';
+  bool isEditingUsername = false;
   final TextEditingController usernameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-  TextEditingController();
+  final TextEditingController addFriendController = TextEditingController();
 
   String? currentUserID;
 
@@ -52,7 +46,6 @@ class _AccountPageState extends State<AccountPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              // Top half of the screen
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -61,10 +54,39 @@ class _AccountPageState extends State<AccountPage> {
                     size: 100.0,
                     color: Colors.blue,
                   ),
-                  SizedBox(height: 10),
-                  const Text(
-                    'User Name',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isEditingUsername = true;
+                      });
+                    },
+                    child: isEditingUsername
+                        ? Column(
+                      children: [
+                        TextField(
+                          controller: usernameController,
+                          decoration: const InputDecoration(
+                            labelText: 'Enter new username',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              username = usernameController.text;
+                              isEditingUsername = false;
+                            });
+                          },
+                          child: const Text('Update Username'),
+                        ),
+                      ],
+                    )
+                        : Text(
+                      username,
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   const Row(
@@ -99,110 +121,44 @@ class _AccountPageState extends State<AccountPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add friends button logic
-                    },
-                    child: const Text(
-                      'Add Friends',
-                      style: TextStyle(
-                        fontSize: 16, // Adjust the font size
-                        color: Colors.white, // Change the text color to white
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          controller: addFriendController,
+                          decoration: const InputDecoration(
+                            labelText: 'Friend Username',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Change the button color
-                      padding: EdgeInsets.symmetric(
-                        vertical: 12, // Adjust the vertical padding
-                        horizontal: 24, // Adjust the horizontal padding
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Add friends button logic
+                        },
+                        child: const Text(
+                          'Add Friends',
+                          style: TextStyle(
+                            fontSize: 16, // Adjust the font size
+                            color: Colors.white, // Change the text color to white
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue, // Change the button color
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12, // Adjust the vertical padding
+                            horizontal: 24, // Adjust the horizontal padding
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-              const Divider(),
-              // Bottom half of the screen
-              Row(
-                children: <Widget>[
-                  // Left column with settings and sliders
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        buildSettingRow('Setting 1', setting1, (bool value) {
-                          setState(() {
-                            setting1 = value;
-                          });
-                        }),
-                        buildSettingRow('Setting 2', setting2, (bool value) {
-                          setState(() {
-                            setting2 = value;
-                          });
-                        }),
-                        buildSettingRow('Setting 3', setting3, (bool value) {
-                          setState(() {
-                            setting3 = value;
-                          });
-                        }),
-                        buildSettingRow('Setting 4', setting4, (bool value) {
-                          setState(() {
-                            setting4 = value;
-                          });
-                        }),
-                      ],
-                    ),
-                  ),
-                  // Right column with text fields
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        buildTextField('Username', usernameController),
-                        buildTextField('Email', emailController),
-                        buildTextField('Password', passwordController,
-                            obscureText: true),
-                        buildTextField(
-                            'Confirm Password', confirmPasswordController,
-                            obscureText: true),
-                      ],
-                    ),
+                    ],
                   ),
                 ],
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildSettingRow(
-      String title, bool value, ValueChanged<bool> onChanged) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(title),
-        Switch(
-          value: value,
-          onChanged: onChanged,
-        ),
-      ],
-    );
-  }
-
-  Widget buildTextField(String label, TextEditingController controller,
-      {bool obscureText = false}) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
-        contentPadding: EdgeInsets.symmetric(
-          vertical: 8.0, // Adjust the vertical padding to reduce height
-          horizontal: 12.0, // Adjust the horizontal padding as needed
         ),
       ),
     );
