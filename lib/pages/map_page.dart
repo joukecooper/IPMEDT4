@@ -19,9 +19,9 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   List<LatLng> polylinePoints = [];
   String selectedRoute = 'Route 1';
-  int routeId = 1; // Default route ID for Route 1
+  int routeId = 1;
   final MapController mapController = MapController();
-  String? currentUserID; // Variabele om de huidige gebruikers-ID op te slaan
+  String? currentUserID;
 
   final Map<String, String> routes = {
     'Route 1': 'lib/assets/route1.gpx',
@@ -35,7 +35,7 @@ class _MapPageState extends State<MapPage> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       loadGpxData('Route 1');
-      getCurrentUserID(); // Roep getCurrentUserID aan bij het initialiseren van de pagina
+      getCurrentUserID();
     });
   }
 
@@ -67,10 +67,11 @@ class _MapPageState extends State<MapPage> {
 
     if (points.isNotEmpty) {
       await Future.delayed(Duration.zero);
-      mapController.move(points.first, 12.5); // Zoom in on the start point of the route
+      mapController.move(points.first, 12.5);
     }
 
     // Debugging
+    print(currentUserID);
     print('Polyline Points for $route: $polylinePoints');
   }
 
@@ -265,7 +266,7 @@ class _MapPageState extends State<MapPage> {
                     bottom: 10,
                     left: 100,
                     right: 100,
-                    child: ElevatedButton(
+                    child: FilledButton(
                       onPressed: startRoute,
                       child: const Text('Start route'),
                     ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
 import '../components/footer.dart';
 import '../components/header.dart';
+import '../services/auth_service.dart';
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
   _AccountPageState createState() => _AccountPageState();
@@ -15,6 +15,26 @@ class _AccountPageState extends State<AccountPage> {
   bool isEditingUsername = false;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController addFriendController = TextEditingController();
+
+  String? currentUserID;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      getCurrentUserID();
+    });
+  }
+
+  Future<void> getCurrentUserID() async {
+    final authService = AuthService();
+    final uid = await authService.getCurrentUID();
+    setState(() {
+      currentUserID = uid;
+    });
+
+    print('Current User ID in AccountPage: $currentUserID');
+  }
 
   @override
   Widget build(BuildContext context) {
