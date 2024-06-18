@@ -91,7 +91,12 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
                 width: 150,
                 child: FilledButton(
-                    onPressed: () {}, //TODO: veranderen als kaartpagina aanwezig
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MapPage()), // Navigeer naar MapPage
+                      );
+                    },
                     child: const Text("Wandel nu!")
                 )
               ),
