@@ -4,6 +4,7 @@ import '../pages/leaderboard.dart';
 import '../pages/account_page.dart';
 import '../pages/login_page.dart';
 import '../pages/store_page.dart';
+import '../pages/map_page.dart';
 
 int currentPageIndex = 0;
 
