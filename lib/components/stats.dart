@@ -163,12 +163,10 @@ class LineChartSample1 extends StatefulWidget {
 }
 
 class LineChartSample1State extends State<LineChartSample1> {
-  late bool isShowingMainData;
 
   @override
   void initState() {
     super.initState();
-    isShowingMainData = true;
   }
 
   @override
@@ -180,19 +178,6 @@ class LineChartSample1State extends State<LineChartSample1> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              SizedBox(
-                height: 37,
-              ),
-              Text(
-                'Monthly Sales',
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
-                ),
-                textAlign: TextAlign.center,
-              ),
               SizedBox(
                 height: 37,
               ),
