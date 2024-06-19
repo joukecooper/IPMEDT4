@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../components/footer.dart';
 import '../services/auth_service.dart';
 
 class StorePage extends StatefulWidget {
@@ -123,7 +122,6 @@ class _StorePageState extends State<StorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const Footer(),
       appBar: AppBar(
         title: const Text('Store Page'),
         actions: <Widget>[

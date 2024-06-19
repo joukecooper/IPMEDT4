@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../components/footer.dart';
-import '../components/header.dart';
 import '../services/auth_service.dart';
 
 class AccountPage extends StatefulWidget {
@@ -117,127 +115,123 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const Header(),
-      bottomNavigationBar: const Footer(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Icon(
-                    Icons.account_circle,
-                    size: 100.0,
-                    color: Colors.lightGreen,
-                  ),
-                  const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isEditingUsername = true;
-                      });
-                    },
-                    child: isEditingUsername
-                        ? Column(
-                      children: [
-                        TextField(
-                          controller: usernameController,
-                          decoration: const InputDecoration(
-                            labelText: 'Enter new username',
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            updateUsername(currentUserID!, usernameController.text);
-                            setState(() {
-                              isEditingUsername = false;
-                            });
-                          },
-                          child: const Text('Update Username'),
-                        ),
-                      ],
-                    )
-                        : Text(
-                      username,
-                      style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          const Text(
-                            'Friends',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            '$friendsCount', // Use dynamic friend count
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          const Text(
-                            'User ID',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            currentUserID ?? 'Loading...', // Display the current user ID
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          controller: addFriendController,
-                          decoration: const InputDecoration(
-                            labelText: 'Friend Username',
-                            border: OutlineInputBorder(),
-                          ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Icon(
+                  Icons.account_circle,
+                  size: 100.0,
+                  color: Colors.lightGreen,
+                ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isEditingUsername = true;
+                    });
+                  },
+                  child: isEditingUsername
+                      ? Column(
+                    children: [
+                      TextField(
+                        controller: usernameController,
+                        decoration: const InputDecoration(
+                          labelText: 'Enter new username',
+                          border: OutlineInputBorder(),
                         ),
                       ),
-                      const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
-                          addFriend(currentUserID!, addFriendController.text);
+                          updateUsername(currentUserID!, usernameController.text);
+                          setState(() {
+                            isEditingUsername = false;
+                          });
                         },
-                        child: const Text(
-                          'Add Friend',
-                          style: TextStyle(
-                            fontSize: 16, // Adjust the font size
-                            color: Colors.white, // Change the text color to white
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightGreen, // Change the button color
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12, // Adjust the vertical padding
-                            horizontal: 24, // Adjust the horizontal padding
-                          ),
-                        ),
+                        child: const Text('Update Username'),
                       ),
                     ],
+                  )
+                      : Text(
+                    username,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        const Text(
+                          'Friends',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          '$friendsCount', // Use dynamic friend count
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        const Text(
+                          'User ID',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          currentUserID ?? 'Loading...', // Display the current user ID
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                        controller: addFriendController,
+                        decoration: const InputDecoration(
+                          labelText: 'Friend Username',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        addFriend(currentUserID!, addFriendController.text);
+                      },
+                      child: const Text(
+                        'Add Friend',
+                        style: TextStyle(
+                          fontSize: 16, // Adjust the font size
+                          color: Colors.white, // Change the text color to white
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightGreen, // Change the button color
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12, // Adjust the vertical padding
+                          horizontal: 24, // Adjust the horizontal padding
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

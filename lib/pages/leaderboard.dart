@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../themedata.dart';
-import '../components/header.dart';
-import '../components/footer.dart';
 
 class Player {
   int? id;
@@ -99,8 +97,6 @@ class _LeaderboardState extends State<Leaderboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Header(),
-      bottomNavigationBar: const Footer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: Column(
