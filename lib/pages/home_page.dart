@@ -7,7 +7,9 @@ import '../themedata.dart';
 import 'map_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key, required this.onClicked});
+
+  final Function(int) onClicked;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   int coins = 0;
   int streakCount = 0;
   String? currentUserID;
+  void onClicked;
 
   @override
   void initState() {
@@ -151,10 +154,7 @@ class _HomePageState extends State<HomePage> {
               width: 150,
               child: FilledButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MapPage()), // Navigeer naar MapPage
-                  );
+                  widget.onClicked(1);
                 },
                 child: const Text("Wandel nu!"),
               ),
