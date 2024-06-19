@@ -21,8 +21,8 @@ class _LineChart extends StatelessWidget {
     borderData: borderData,
     lineBarsData: lineBarsData1,
     minX: 0,
-    maxX: 10,
-    maxY: 4,
+    maxX: 5,
+    maxY: 5,
     minY: 0,
   );
 
@@ -95,16 +95,16 @@ class _LineChart extends StatelessWidget {
     );
     Widget text;
     switch (value.toInt()) {
-      case 0:
+      case 1:
         text = const Text('Wk 1', style: style);
         break;
-      case 7:
+      case 2:
         text = const Text('Wk 2', style: style);
         break;
-      case 14:
+      case 3:
         text = const Text('Wk 3', style: style);
         break;
-      case 21:
+      case 4:
         text = const Text('Wk 4', style: style);
       default:
         text = const Text('');
@@ -121,7 +121,7 @@ class _LineChart extends StatelessWidget {
   SideTitles get bottomTitles => SideTitles(
     showTitles: true,
     reservedSize: 32,
-    interval: 7,
+    interval: 1,
     getTitlesWidget: bottomTitleWidgets,
   );
 
@@ -146,13 +146,12 @@ class _LineChart extends StatelessWidget {
     dotData: const FlDotData(show: false),
     belowBarData: BarAreaData(show: false),
     spots: const [
+      FlSpot(0, 0),
       FlSpot(1, 1),
-      FlSpot(3, 1.5),
-      FlSpot(5, 1.4),
-      FlSpot(7, 3.4),
-      FlSpot(10, 2),
-      FlSpot(12, 2.2),
-      FlSpot(13, 1.8),
+      FlSpot(2, 1.5),
+      FlSpot(3, 4.4),
+      FlSpot(4, 3.4),
+      FlSpot(5, 3.4),
     ],
   );
 }
@@ -176,7 +175,7 @@ class LineChartSample1State extends State<LineChartSample1> {
   @override
   Widget build(BuildContext context) {
     return const AspectRatio(
-      aspectRatio: 1.23,
+      aspectRatio: 1,
       child: Stack(
         children: <Widget>[
           Column(
