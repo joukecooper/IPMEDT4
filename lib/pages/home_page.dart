@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 import '../services/auth_service.dart';
 import '../themedata.dart';
-import 'map_page.dart';
+import 'package:ipmedt4/components/stats.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.onClicked});
@@ -145,6 +145,7 @@ class _HomePageState extends State<HomePage> {
           const Expanded(
             flex: 2,
             child: Card(
+              child: LineChartSample1()
             ),
           ),
           const SizedBox(height: 6),
