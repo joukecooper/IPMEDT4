@@ -152,17 +152,13 @@ class _StorePageState extends State<StorePage> {
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         subtitle: Text('\$${item['price']}/month'),
-        trailing: ElevatedButton(
+        trailing: FilledButton(
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: const Text('Thank you for your purchase!'),
             ));
             // Buy premium version logic
           },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.lightGreen,
-          ),
           child: const Text('Buy'),
         ),
       ),
@@ -190,8 +186,8 @@ class _StorePageState extends State<StorePage> {
               '${item['price']} Coins',
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            ElevatedButton(
+            const SizedBox(height: 10),
+            OutlinedButton(
               onPressed: () async {
                 int price = item['price'];
                 if (coins >= price) {
@@ -203,10 +199,6 @@ class _StorePageState extends State<StorePage> {
                   ));
                 }
               },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.lightGreen,
-              ),
               child: const Text('Buy'),
             ),
           ],
