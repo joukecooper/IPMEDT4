@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 19),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -104,6 +104,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                const SizedBox(width: 2),
                 Expanded(
                   child: Card(
                     child: Stack(
@@ -137,11 +138,13 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          const SizedBox(height: 2),
           const Expanded(
             flex: 2,
             child: Card(
             ),
           ),
+          const SizedBox(height: 6),
           Center(
             child: SizedBox(
               height: 50,
