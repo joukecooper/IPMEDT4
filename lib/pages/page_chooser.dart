@@ -28,7 +28,7 @@ class _PageChooserState extends State<PageChooser> {
   void initState() {
     super.initState();
     screens = [
-      const HomePage(onClicked: onClicked),
+      HomePage(onClicked: onClicked),
       const MapPage(),
       const Leaderboard(),
       const AccountPage(),
