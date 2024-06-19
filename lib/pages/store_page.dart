@@ -121,41 +121,25 @@ class _StorePageState extends State<StorePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Store Page'),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                'Coins: $coins',
-                style: const TextStyle(fontSize: 18),
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(16.0),
-        children: <Widget>[
-          // Premium version card
-          buildPremiumCard(storeItems[0]),
-          SizedBox(height: 20),
-          // 2x2 grid of store item cards
-          GridView.count(
-            physics: NeverScrollableScrollPhysics(), // Disable GridView's scrolling
-            shrinkWrap: true, // Enable GridView to scroll inside ListView
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 0.7, // Adjust the height of the cards
-            children: List.generate(4, (index) {
-              return buildStoreItemCard(storeItems[index + 1]);
-            }),
-          ),
-        ],
-      ),
+    return ListView(
+      padding: EdgeInsets.all(16.0),
+      children: <Widget>[
+        // Premium version card
+        buildPremiumCard(storeItems[0]),
+        SizedBox(height: 20),
+        // 2x2 grid of store item cards
+        GridView.count(
+          physics: NeverScrollableScrollPhysics(), // Disable GridView's scrolling
+          shrinkWrap: true, // Enable GridView to scroll inside ListView
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 0.7, // Adjust the height of the cards
+          children: List.generate(4, (index) {
+            return buildStoreItemCard(storeItems[index + 1]);
+          }),
+        ),
+      ],
     );
   }
 
