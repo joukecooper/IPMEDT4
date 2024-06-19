@@ -16,18 +16,24 @@ class PageChooser extends StatefulWidget {
 
 class _PageChooserState extends State<PageChooser> {
   int currentPageIndex = 0;
-  List screens = [
-    const HomePage(),
-    const MapPage(),
-    const Leaderboard(),
-    const AccountPage(),
-    StorePage(),
-  ];
+  List<Widget> screens = [];
 
   void onClicked(int index) {
     setState(() {
       currentPageIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    screens = [
+      const HomePage(onClicked: onClicked),
+      const MapPage(),
+      const Leaderboard(),
+      const AccountPage(),
+      StorePage(),
+    ];
   }
 
 
