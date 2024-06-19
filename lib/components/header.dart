@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import '../services/auth_service.dart';
-import 'dart:convert';
+import '../pages/account_page.dart';
 
 
 class Header extends StatefulWidget {

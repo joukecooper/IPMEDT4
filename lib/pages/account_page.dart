@@ -20,6 +20,7 @@ class _AccountPageState extends State<AccountPage> {
 
   String? currentUserID;
   int friendsCount = 0;  // Initialize friend count
+  final AuthService _auth = AuthService(); // Instance of AuthService for logout
 
   @override
   void initState() {
@@ -233,8 +234,6 @@ class _AccountPageState extends State<AccountPage> {
                   Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage(title: 'Login Page')), // Navigeer naar MapPage
-
-
                   ),
                     _auth.logout()},
                   child: const Text("Logout"),
@@ -243,7 +242,7 @@ class _AccountPageState extends State<AccountPage> {
             ),
           ],
         ),
-      ),
+      )
     );
   }
 }
