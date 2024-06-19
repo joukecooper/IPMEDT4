@@ -2,7 +2,7 @@ import 'dart:async';
 
 import '../themedata.dart';
 import 'package:flutter/material.dart';
-import 'package:ipmedt4/pages/pageChooser.dart';
+import 'package:ipmedt4/pages/page_chooser.dart';
 import 'package:ipmedt4/pages/register_page.dart';
 import 'package:ipmedt4/services/auth_service.dart';
 
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     _loginSubscription = _auth.listenToUser().listen((user) {
       if (user != null) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => PageChooser()));
+            context, MaterialPageRoute(builder: (context) => const PageChooser()));
       }
     });
   }
