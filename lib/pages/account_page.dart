@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../components/footer.dart';
 import '../components/header.dart';
 import '../services/auth_service.dart';
@@ -11,12 +13,13 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  String username = 'User Name';
+  String username = 'Loading...';
   bool isEditingUsername = false;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController addFriendController = TextEditingController();
 
   String? currentUserID;
+  int friendsCount = 0;  // Initialize friend count
 
   @override
   void initState() {
@@ -32,8 +35,84 @@ class _AccountPageState extends State<AccountPage> {
     setState(() {
       currentUserID = uid;
     });
-
+    fetchUsername(uid!);
+    fetchFriendsCount(uid!);  // Fetch the initial friend count
     print('Current User ID in AccountPage: $currentUserID');
+  }
+
+  Future<void> fetchUsername(String userID) async {
+    final response = await http.get(Uri.parse('http://dsf-server.nl/api/user/$userID/username'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      setState(() {
+        username = data['username'];
+        print(data['username']);
+      });
+    } else {
+      setState(() {
+        username = 'Error loading username';
+      });
+    }
+  }
+
+  Future<void> fetchFriendsCount(String userID) async {
+    final response = await http.get(Uri.parse('http://dsf-server.nl/api/user/$userID/friends/count'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      setState(() {
+        friendsCount = data['total_friends'];
+      });
+    } else {
+      setState(() {
+        friendsCount = 0;
+      });
+    }
+  }
+
+  Future<void> updateUsername(String userID, String newUsername) async {
+    final response = await http.put(
+      Uri.parse('http://dsf-server.nl/api/user/$userID/username'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': newUsername,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      fetchUsername(userID);
+    } else {
+      setState(() {
+        username = 'Error updating username';
+      });
+    }
+  }
+
+  Future<void> addFriend(String userID, String friendUsername) async {
+    final response = await http.post(
+      Uri.parse('http://dsf-server.nl/api/user/$userID/friends'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'friendUsername': friendUsername,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      fetchFriendsCount(userID);  // Refresh the friends count after successfully adding a friend
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Friend added successfully')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to add friend'),
+          backgroundColor: Colors.red,  // Set the background color to red
+        ),
+      );
+    }
   }
 
   @override
@@ -52,7 +131,7 @@ class _AccountPageState extends State<AccountPage> {
                   const Icon(
                     Icons.account_circle,
                     size: 100.0,
-                    color: Colors.blue,
+                    color: Colors.lightGreen,
                   ),
                   const SizedBox(height: 10),
                   GestureDetector(
@@ -73,8 +152,8 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
+                            updateUsername(currentUserID!, usernameController.text);
                             setState(() {
-                              username = usernameController.text;
                               isEditingUsername = false;
                             });
                           },
@@ -89,31 +168,31 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text(
+                          const Text(
                             'Friends',
                             style: TextStyle(fontSize: 18),
                           ),
                           Text(
-                            '25', // Replace with dynamic friend count
-                            style: TextStyle(
+                            '$friendsCount', // Use dynamic friend count
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                       Column(
                         children: <Widget>[
-                          Text(
-                            'Email',
+                          const Text(
+                            'User ID',
                             style: TextStyle(fontSize: 18),
                           ),
                           Text(
-                            'user@example.com', // Replace with dynamic email
-                            style: TextStyle(
+                            currentUserID ?? 'Loading...', // Display the current user ID
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -136,17 +215,17 @@ class _AccountPageState extends State<AccountPage> {
                       const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
-                          // Add friends button logic
+                          addFriend(currentUserID!, addFriendController.text);
                         },
                         child: const Text(
-                          'Add Friends',
+                          'Add Friend',
                           style: TextStyle(
                             fontSize: 16, // Adjust the font size
                             color: Colors.white, // Change the text color to white
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue, // Change the button color
+                          backgroundColor: Colors.lightGreen, // Change the button color
                           padding: const EdgeInsets.symmetric(
                             vertical: 12, // Adjust the vertical padding
                             horizontal: 24, // Adjust the horizontal padding

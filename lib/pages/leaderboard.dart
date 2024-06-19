@@ -36,11 +36,25 @@ class Leaderboard extends StatefulWidget {
 
 class _LeaderboardState extends State<Leaderboard> {
   List<Player> players = [];
+  bool isWorldSelected = true;
+  String? currentUserID;
 
   @override
   void initState() {
     super.initState();
-    _loadPlayers('http://dsf-server.nl/api/top-users');
+    // Assuming you have a method to get the current user ID
+    getCurrentUserID().then((uid) {
+      setState(() {
+        currentUserID = uid;
+      });
+      _loadPlayers('http://dsf-server.nl/api/top-users');
+    });
+  }
+
+  Future<String> getCurrentUserID() async {
+    // Mock implementation to get the current user ID
+    // Replace with your actual implementation
+    return '1'; // Example user ID
   }
 
   Future<void> _loadPlayers(String apiUrl) async {
@@ -51,8 +65,10 @@ class _LeaderboardState extends State<Leaderboard> {
         final jsonData = json.decode(response.body);
         final List<Player> loadedPlayers = [];
 
-        for (var player in jsonData['top_users']) {
-          loadedPlayers.add(Player.fromJson(player));
+        final playersData = isWorldSelected ? jsonData['top_users'] : jsonData['top_friends'];
+        for (var playerData in playersData) {
+          final player = Player.fromJson(playerData);
+          loadedPlayers.add(player);
         }
 
         setState(() {
@@ -66,6 +82,17 @@ class _LeaderboardState extends State<Leaderboard> {
     } catch (e) {
       print('Error loading players: $e');
       // Handle error if necessary
+    }
+  }
+
+  void toggleLeaderboard(bool isWorld) {
+    setState(() {
+      isWorldSelected = isWorld;
+    });
+    if (isWorld) {
+      _loadPlayers('http://dsf-server.nl/api/top-users');
+    } else {
+      _loadPlayers('http://dsf-server.nl/api/user/$currentUserID/top-friends');
     }
   }
 
@@ -85,7 +112,7 @@ class _LeaderboardState extends State<Leaderboard> {
                   padding: const EdgeInsets.all(4.0),
                   child: FilledButton(
                     onPressed: () {
-                      _loadPlayers('http://dsf-server.nl/api/top-users');
+                      toggleLeaderboard(true);
                     },
                     child: const Text("Wereld"),
                   ),
@@ -94,7 +121,7 @@ class _LeaderboardState extends State<Leaderboard> {
                   padding: const EdgeInsets.all(4.0),
                   child: OutlinedButton(
                     onPressed: () {
-                      _loadPlayers('http://dsf-server.nl/api/user/1/top-friends');
+                      toggleLeaderboard(false);
                     },
                     child: const Text("Vrienden"),
                   ),
@@ -146,7 +173,7 @@ class _LeaderboardState extends State<Leaderboard> {
                             width: 60, // Increased width to accommodate larger coin counts
                             child: Text(
                               player.coinCount,
-                              style: TextStyle(fontSize: 18), // Adjust font size as needed
+                              style: const TextStyle(fontSize: 18), // Adjust font size as needed
                               textAlign: TextAlign.center,
                             ),
                           ),

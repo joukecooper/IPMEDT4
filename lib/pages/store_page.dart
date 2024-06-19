@@ -172,11 +172,14 @@ class _StorePageState extends State<StorePage> {
         subtitle: Text('\$${item['price']}/month'),
         trailing: ElevatedButton(
           onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: const Text('Thank you for your purchase!'),
+            ));
             // Buy premium version logic
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.lightGreen,
           ),
           child: const Text('Buy'),
         ),
@@ -220,7 +223,7 @@ class _StorePageState extends State<StorePage> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.green,
+                backgroundColor: Colors.lightGreen,
               ),
               child: const Text('Buy'),
             ),
