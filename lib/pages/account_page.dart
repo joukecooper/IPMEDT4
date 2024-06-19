@@ -239,8 +239,6 @@ class _AccountPageState extends State<AccountPage> {
                     Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => LoginPage(title: 'Login Page')), // Navigeer naar MapPage
-
-
                     ),
                       _auth.logout()},
                     child: const Text("Logout"),
