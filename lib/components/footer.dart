@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
-import '../pages/home_page.dart';
-import '../pages/leaderboard.dart';
-import '../pages/account_page.dart';
-import '../pages/login_page.dart';
-import '../pages/store_page.dart';
-import '../pages/map_page.dart';
 
 int currentPageIndex = 0;
 
-class Footer extends StatefulWidget {
-  const Footer({super.key});
+class Footer extends StatelessWidget {
+  final currentPageIndex;
+  ValueChanged<int> onClicked;
 
-  @override
-  State<Footer> createState() => _FooterState();
-}
-
-class _FooterState extends State<Footer> {
+  Footer({
+    this.currentPageIndex,
+    required this.onClicked,
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {
-
     return NavigationBar(
       destinations: const [
         NavigationDestination(
@@ -43,49 +37,8 @@ class _FooterState extends State<Footer> {
             label: 'Winkel'
         )
       ],
-      onDestinationSelected: (int index) {
-        setState(() {
-          currentPageIndex = index;
-        });
-        switch(index) {
-          case 0:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
-            break;
-          case 1:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MapPage()),
-            );
-            break;
-          case 2:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Leaderboard()),
-            );
-            break;
-          case 3:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AccountPage()),
-            );
-            break;
-          case 4:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => StorePage()),
-            );
-            break;
-          default:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage(title: "Joejoe")),
-            );
-        }
-      },
       selectedIndex: currentPageIndex,
+      onDestinationSelected: onClicked,
     );
   }
 }
