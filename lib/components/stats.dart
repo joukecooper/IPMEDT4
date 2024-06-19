@@ -85,7 +85,7 @@ class _LineChart extends StatelessWidget {
     getTitlesWidget: leftTitleWidgets,
     showTitles: true,
     interval: 1,
-    reservedSize: 40,
+    reservedSize: 50,
   );
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
@@ -130,9 +130,8 @@ class _LineChart extends StatelessWidget {
   FlBorderData get borderData => FlBorderData(
     show: true,
     border: const Border(
-      bottom:
-      BorderSide(color: secondaryColorOpacity, width: 4),
-      left: BorderSide(color: Colors.transparent),
+      bottom: BorderSide(color: secondaryColor, width: 4),
+      left: BorderSide(color: secondaryColor, width: 4),
       right: BorderSide(color: Colors.transparent),
       top: BorderSide(color: Colors.transparent),
     ),
@@ -140,7 +139,7 @@ class _LineChart extends StatelessWidget {
 
   LineChartBarData get lineChartBarData1_1 => LineChartBarData(
     isCurved: true,
-    color: secondaryColor,
+    color: tertiaryColor,
     barWidth: 8,
     isStrokeCapRound: true,
     dotData: const FlDotData(show: false),
@@ -204,7 +203,7 @@ class LineChartSample1State extends State<LineChartSample1> {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 12,
               ),
             ],
           ),
