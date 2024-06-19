@@ -184,7 +184,19 @@ class LineChartSample1State extends State<LineChartSample1> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(right: 16, left: 6),
-                  child: _LineChart(),
+                  child: Stack(
+                    children: [
+                      _LineChart(),
+                      Align(
+                        alignment: Alignment(1, -0.7),
+                        child: Icon(
+                          Icons.hiking,
+                          color: secondaryColor,
+                          size: 40,
+                        ),
+                      ),
+                    ]
+                  )
                 ),
               ),
               SizedBox(
