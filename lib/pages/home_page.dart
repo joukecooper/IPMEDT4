@@ -7,7 +7,6 @@ import '../components/header.dart';
 import '../components/footer.dart';
 import 'map_page.dart';
 import '../services/auth_service.dart';
-import '../components/stats.png' as stats;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
