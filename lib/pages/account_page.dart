@@ -4,6 +4,7 @@ import 'package:ipmedt4/pages/login_page.dart';
 import 'package:ipmedt4/pages/map_page.dart';
 import 'dart:convert';
 import '../services/auth_service.dart';
+import '../themedata.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -129,7 +130,7 @@ class _AccountPageState extends State<AccountPage> {
                 const Icon(
                   Icons.account_circle,
                   size: 100.0,
-                  color: Colors.lightGreen,
+                  color: tertiaryColor,
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
@@ -229,7 +230,7 @@ class _AccountPageState extends State<AccountPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                FilledButton(
+                OutlinedButton(
                   onPressed: () => {
                   Navigator.push(
                   context,
