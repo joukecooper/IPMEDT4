@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import '../pages/account_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 class Header extends StatefulWidget {
@@ -67,10 +68,7 @@ class _HeaderState extends State<Header> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
-            child: Text(
-              'Coins: $coins',
-              style: const TextStyle(fontSize: 18),
-            ),
+            child: Text( 'Coins: $coins' ),
           ),
         ),
       ],
