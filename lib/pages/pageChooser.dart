@@ -24,43 +24,20 @@ class _PageChooserState extends State<PageChooser> {
     StorePage(),
   ];
 
-  int coins = 0; // Base value of coins
-  String? currentUserID;
-
   void onClicked(int index) {
     setState(() {
       currentPageIndex = index;
     });
   }
 
-  Widget headerAction() {
-    if (currentPageIndex == 4) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Text(
-            'Coins: $coins',
-            style: const TextStyle(fontSize: 18),
-          ),
-        ),
-      );
-    } else {
-      return IconButton(
-        icon: const Icon(
-            size: 40,
-            Icons.settings_rounded
-        ),
-        onPressed: () {
-          currentPageIndex = 3;
-        },
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Header(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80),
+        child: Header()
+      ),
       body: Center(
         child: screens.elementAt(currentPageIndex),
       ),
