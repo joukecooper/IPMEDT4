@@ -7,6 +7,7 @@ import '../components/header.dart';
 import '../components/footer.dart';
 import 'map_page.dart';
 import '../services/auth_service.dart';
+import '../components/stats.png' as stats;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -95,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(fontSize: 80),
                             ),
                           ),
-                          Align(
+                          const Align(
                             alignment: Alignment.bottomRight,
                             child: Padding(
                               padding: const EdgeInsets.only(right: 10.0, bottom: 2.0),
@@ -125,10 +126,10 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(fontSize: 80),
                             ),
                           ),
-                          Align(
+                          const Align(
                             alignment: Alignment.bottomRight,
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 10.0, bottom: 2.0),
+                              padding: EdgeInsets.only(right: 10.0, bottom: 2.0),
                               child: Text("Dagen streak"),
                             ),
                           ),
@@ -142,7 +143,9 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               flex: 2,
               child: Card(
-                child: Text("Stats"), // Placeholder for stats
+                child: Image(
+                  image: FileImage(stats.png),
+                ), // Placeholder for stats
               ),
             ),
             Center(
@@ -153,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MapPage()), // Navigeer naar MapPage
+                      MaterialPageRoute(builder: (context) => const MapPage()), // Navigeer naar MapPage
                     );
                   },
                   child: const Text("Wandel nu!"),
