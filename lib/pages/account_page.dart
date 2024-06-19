@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ipmedt4/pages/login_page.dart';
+import 'package:ipmedt4/pages/map_page.dart';
 import 'dart:convert';
 import '../services/auth_service.dart';
 
@@ -145,7 +147,7 @@ class _AccountPageState extends State<AccountPage> {
                           border: OutlineInputBorder(),
                         ),
                       ),
-                      ElevatedButton(
+                      FilledButton(
                         onPressed: () {
                           updateUsername(currentUserID!, usernameController.text);
                           setState(() {
@@ -158,8 +160,7 @@ class _AccountPageState extends State<AccountPage> {
                   )
                       : Text(
                     username,
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -174,8 +175,7 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         Text(
                           '$friendsCount', // Use dynamic friend count
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -187,8 +187,7 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         Text(
                           currentUserID ?? 'Loading...', // Display the current user ID
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -208,7 +207,7 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    ElevatedButton(
+                    FilledButton(
                       onPressed: () {
                         addFriend(currentUserID!, addFriendController.text);
                       },
@@ -219,8 +218,7 @@ class _AccountPageState extends State<AccountPage> {
                           color: Colors.white, // Change the text color to white
                         ),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightGreen, // Change the button color
+                      style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           vertical: 12, // Adjust the vertical padding
                           horizontal: 24, // Adjust the horizontal padding
@@ -228,6 +226,18 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(height: 20),
+                FilledButton(
+                  onPressed: () => {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage(title: 'Login Page')), // Navigeer naar MapPage
+
+
+                  ),
+                    _auth.logout()},
+                  child: const Text("Logout"),
                 ),
               ],
             ),

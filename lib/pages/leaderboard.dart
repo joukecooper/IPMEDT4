@@ -113,15 +113,15 @@ class _LeaderboardState extends State<Leaderboard> {
                     child: const Text("Wereld"),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: OutlinedButton(
-                    onPressed: () {
-                      toggleLeaderboard(false);
-                    },
-                    child: const Text("Vrienden"),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(4.0),
+                //   child: OutlinedButton(
+                //     onPressed: () {
+                //       toggleLeaderboard(false);
+                //     },
+                //     child: const Text("Vrienden"),
+                //   ),
+                // ),
               ],
             ),
             Expanded(

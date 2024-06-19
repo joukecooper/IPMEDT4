@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getCurrentUserID();
-    _loadStats();
   }
 
   Future<void> getCurrentUserID() async {
@@ -31,6 +30,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       currentUserID = uid;
     });
+
+    if (currentUserID != null) {
+      _loadStats();
+    }
   }
 
   Future<void> _loadStats() async {
