@@ -122,7 +122,7 @@ class _StorePageState extends State<StorePage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 0),
       children: <Widget>[
         // Premium version card
         buildPremiumCard(storeItems[0]),

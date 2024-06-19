@@ -116,7 +116,7 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 0),
       child: Column(
         children: [
           DataTable(

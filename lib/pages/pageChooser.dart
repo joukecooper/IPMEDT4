@@ -38,7 +38,8 @@ class _PageChooserState extends State<PageChooser> {
         preferredSize: Size.fromHeight(80),
         child: Header()
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(19, 0, 19, 0),
         child: screens.elementAt(currentPageIndex),
       ),
       bottomNavigationBar: Footer(
