@@ -119,106 +119,110 @@ class _MapPageState extends State<MapPage> {
       padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 0),
       child: Column(
         children: [
-          DataTable(
-            showCheckboxColumn: false,
-            columns: const <DataColumn>[
-              DataColumn(
-                label: Text('Route'),
-              ),
-              DataColumn(
-                label: Text('KM'),
-              ),
-              DataColumn(
-                label: Text('Duur'),
-              ),
-              DataColumn(
-                label: Text('Munten'),
-              ),
-            ],
-            rows: [
-              DataRow(
-                selected: selectedRoute == 'Route 1',
-                cells: const <DataCell>[
-                  DataCell(Text('Route-1')),
-                  DataCell(Text('4.5')),
-                  DataCell(Text('1 u')),
-                  DataCell(Text('10')),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Card(
+              child: DataTable(
+                columns: const <DataColumn>[
+                  DataColumn(
+                    label: Expanded(
+                      child: Text('Route'),
+                      flex: 2,
+                    ),
+                  ),
+                  DataColumn(
+                    label: Expanded(
+                      child: Text('KM'),
+                      flex: 1,
+                    ),
+                  ),
+                  DataColumn(
+                    label: Expanded(
+                      child: Text('Duur'),
+                      flex: 2,
+                    ),
+                  ),
+                  DataColumn(
+                    label: Expanded(
+                      child: Text('Munten'),
+                      flex: 1,
+                    ),
+                  ),
                 ],
-                onSelectChanged: (selected) {
-                  setState(() {
-                    selectedRoute = 'Route 1';
-                    routeId = 1;
-                  });
-                  loadGpxData('Route 1');
-                },
-                color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-                  if (states.contains(MaterialState.selected)) return Colors.lightGreen.withOpacity(0.2);
-                  return null;
-                }),
-              ),
-              DataRow(
-                selected: selectedRoute == 'Route 2',
-                cells: const <DataCell>[
-                  DataCell(Text('Route-2')),
-                  DataCell(Text('9')),
-                  DataCell(Text('2 u')),
-                  DataCell(Text('25')),
+                rows: [
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(
+                        Text('Route 1'),
+                        onTap: () {
+                          setState(() {
+                            selectedRoute = 'Route 1';
+                            routeId = 1; // Set route ID for Route 1
+                          });
+                          loadGpxData('Route 1');
+                        },
+                      ),
+                      const DataCell(Text('4.5')),
+                      const DataCell(Text('1 uur')),
+                      const DataCell(Text('10')),
+                    ],
+                  ),
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(
+                        Text('Route 2'),
+                        onTap: () {
+                          setState(() {
+                            selectedRoute = 'Route 2';
+                            routeId = 2; // Set route ID for Route 2
+                          });
+                          loadGpxData('Route 2');
+                        },
+                      ),
+                      const DataCell(Text('9')),
+                      const DataCell(Text('2 uur')),
+                      const DataCell(Text('25')),
+                    ],
+                  ),
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(
+                        Text('Route 3'),
+                        onTap: () {
+                          setState(() {
+                            selectedRoute = 'Route 3';
+                            routeId = 3; // Set route ID for Route 3
+                          });
+                          loadGpxData('Route 3');
+                        },
+                      ),
+                      const DataCell(Text('13.5')),
+                      const DataCell(Text('3 uur')),
+                      const DataCell(Text('40')),
+                    ],
+                  ),
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(
+                        Text('Route 4'),
+                        onTap: () {
+                          setState(() {
+                            selectedRoute = 'Route 4';
+                            routeId = 4; // Set route ID for Route 4
+                          });
+                          loadGpxData('Route 4');
+                        },
+                      ),
+                      const DataCell(Text('18')),
+                      const DataCell(Text('4 uur')),
+                      const DataCell(Text('55')),
+                    ],
+                  ),
                 ],
-                onSelectChanged: (selected) {
-                  setState(() {
-                    selectedRoute = 'Route 2';
-                    routeId = 2;
-                  });
-                  loadGpxData('Route 2');
-                },
-                color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-                  if (states.contains(MaterialState.selected)) return Colors.lightGreen.withOpacity(0.2);
-                  return null;
-                }),
               ),
-              DataRow(
-                selected: selectedRoute == 'Route 3',
-                cells: const <DataCell>[
-                  DataCell(Text('Route-3')),
-                  DataCell(Text('13.5')),
-                  DataCell(Text('3 u')),
-                  DataCell(Text('40')),
-                ],
-                onSelectChanged: (selected) {
-                  setState(() {
-                    selectedRoute = 'Route 3';
-                    routeId = 3;
-                  });
-                  loadGpxData('Route 3');
-                },
-                color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-                  if (states.contains(MaterialState.selected)) return Colors.lightGreen.withOpacity(0.2);
-                  return null;
-                }),
-              ),
-              DataRow(
-                selected: selectedRoute == 'Route 4',
-                cells: const <DataCell>[
-                  DataCell(Text('Route-4')),
-                  DataCell(Text('18')),
-                  DataCell(Text('4 u')),
-                  DataCell(Text('55')),
-                ],
-                onSelectChanged: (selected) {
-                  setState(() {
-                    selectedRoute = 'Route 4';
-                    routeId = 4;
-                  });
-                  loadGpxData('Route 4');
-                },
-                color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-                  if (states.contains(MaterialState.selected)) return Colors.lightGreen.withOpacity(0.2);
-                  return null;
-                }),
-              ),
-            ],
+            ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 19),
           // Map section
           Expanded(
             child: Stack(
