@@ -20,8 +20,8 @@ class _AccountPageState extends State<AccountPage> {
   final TextEditingController addFriendController = TextEditingController();
 
   String? currentUserID;
-  int friendsCount = 0;  // Initialize friend count
-  final AuthService _auth = AuthService(); // Instance of AuthService for logout
+  int friendsCount = 0;
+  final AuthService _auth = AuthService();
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _AccountPageState extends State<AccountPage> {
       currentUserID = uid;
     });
     fetchUsername(uid!);
-    fetchFriendsCount(uid!);  // Fetch the initial friend count
+    fetchFriendsCount(uid!);
     print('Current User ID in AccountPage: $currentUserID');
   }
 
@@ -103,7 +103,7 @@ class _AccountPageState extends State<AccountPage> {
     );
 
     if (response.statusCode == 200) {
-      fetchFriendsCount(userID);  // Refresh the friends count after successfully adding a friend
+      fetchFriendsCount(userID);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Friend added successfully')),
       );
@@ -111,7 +111,7 @@ class _AccountPageState extends State<AccountPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Failed to add friend'),
-          backgroundColor: Colors.red,  // Set the background color to red
+          backgroundColor: Colors.red,
         ),
       );
     }
@@ -145,7 +145,7 @@ class _AccountPageState extends State<AccountPage> {
                       TextField(
                         controller: usernameController,
                         decoration: const InputDecoration(
-                          labelText: 'Enter new username',
+                          labelText: 'Vul gebruikersnaam in',
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -156,7 +156,7 @@ class _AccountPageState extends State<AccountPage> {
                             isEditingUsername = false;
                           });
                         },
-                        child: const Text('Update Username'),
+                        child: const Text('Gebruikersnaam bijwerken'),
                       ),
                     ],
                   )
@@ -172,11 +172,11 @@ class _AccountPageState extends State<AccountPage> {
                     Column(
                       children: <Widget>[
                         const Text(
-                          'Friends',
+                          'Vrienden',
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          '$friendsCount', // Use dynamic friend count
+                          '$friendsCount',
                           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -184,11 +184,11 @@ class _AccountPageState extends State<AccountPage> {
                     Column(
                       children: <Widget>[
                         const Text(
-                          'User ID',
+                          'gebruikers ID',
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          currentUserID ?? 'Loading...', // Display the current user ID
+                          currentUserID ?? 'Loading...',
                           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -203,7 +203,7 @@ class _AccountPageState extends State<AccountPage> {
                       child: TextField(
                         controller: addFriendController,
                         decoration: const InputDecoration(
-                          labelText: 'Friend Username',
+                          labelText: 'Naam vriend',
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -213,17 +213,17 @@ class _AccountPageState extends State<AccountPage> {
                       onPressed: () {
                         addFriend(currentUserID!, addFriendController.text);
                       },
-                      child: const Text(
-                        'Add Friend',
-                        style: TextStyle(
-                          fontSize: 16, // Adjust the font size
-                          color: Colors.white, // Change the text color to white
-                        ),
-                      ),
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 12, // Adjust the vertical padding
-                          horizontal: 24, // Adjust the horizontal padding
+                          vertical: 12,
+                          horizontal: 24,
+                        ),
+                      ),
+                      child: const Text(
+                        'voeg vriend toe',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -234,10 +234,10 @@ class _AccountPageState extends State<AccountPage> {
                   onPressed: () => {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage(title: 'Login Page')), // Navigeer naar MapPage
+                  MaterialPageRoute(builder: (context) => LoginPage(title: 'Login Page')),
                   ),
                     _auth.logout()},
-                  child: const Text("Logout"),
+                  child: const Text("Uitloggen"),
                 ),
               ],
             ),

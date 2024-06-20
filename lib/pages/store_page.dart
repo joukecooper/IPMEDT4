@@ -9,36 +9,36 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  int coins = 0; // Base value of coins
+  int coins = 0;
   String? currentUserID;
 
   final List<Map<String, dynamic>> storeItems = [
     {
-      'name': 'Premium Version',
+      'name': 'Premium Versie',
       'price': 2.99,
       'image': 'https://image.similarpng.com/very-thumbnail/2020/08/Golden-crown-design-Premium-vector-PNG.png',
       'isPremium': true,
     },
     {
-      'name': 'Item 1',
+      'name': 'Bergschoenen',
       'price': 200,
       'image': 'https://www.wereldwijdwandelen.nl/wp-content/uploads/2023/05/beste-goedkope-wandelschoenen-2.png',
       'isPremium': false,
     },
     {
-      'name': 'Item 2',
+      'name': 'Wandelschoenen',
       'price': 200,
       'image': 'https://www.mykees.com/wp-content/uploads/2023/01/beste-wandelschoenen-868wig-1.jpg',
       'isPremium': false,
     },
     {
-      'name': 'Item 3',
+      'name': 'Wandelrugtas',
       'price': 200,
       'image': 'https://vienta.nl/wp-content/uploads/My-project-1-14.png',
       'isPremium': false,
     },
     {
-      'name': 'Item 4',
+      'name': 'wandeljas',
       'price': 200,
       'image': 'https://www.bfgcdn.com/1500_1500_90/103-1245-0111/stoic-womens-nordmarkst-hoody-softshelljack.jpg',
       'isPremium': false,
@@ -124,17 +124,15 @@ class _StorePageState extends State<StorePage> {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 0),
       children: <Widget>[
-        // Premium version card
         buildPremiumCard(storeItems[0]),
         SizedBox(height: 20),
-        // 2x2 grid of store item cards
         GridView.count(
-          physics: NeverScrollableScrollPhysics(), // Disable GridView's scrolling
-          shrinkWrap: true, // Enable GridView to scroll inside ListView
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 0.7, // Adjust the height of the cards
+          childAspectRatio: 0.6,
           children: List.generate(4, (index) {
             return buildStoreItemCard(storeItems[index + 1]);
           }),
@@ -155,11 +153,10 @@ class _StorePageState extends State<StorePage> {
         trailing: FilledButton(
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: const Text('Thank you for your purchase!'),
+              content: const Text('Bedankt voor je aankoop!'),
             ));
-            // Buy premium version logic
           },
-          child: const Text('Buy'),
+          child: const Text('Koop nu'),
         ),
       ),
     );
@@ -176,10 +173,14 @@ class _StorePageState extends State<StorePage> {
               item['name'],
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+            Text(
+              '10% korting',
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey),
+            ),
             Image.network(
               item['image'],
-              width: 110, // Fixed width
-              height: 110, // Fixed height
+              width: 110,
+              height: 110,
               fit: BoxFit.cover,
             ),
             Text(
@@ -193,13 +194,12 @@ class _StorePageState extends State<StorePage> {
                 if (coins >= price) {
                   await purchaseItem(price);
                 } else {
-                  // Show insufficient coins message
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: const Text('Not enough coins!'),
+                    content: const Text('Niet genoeg munten!'),
                   ));
                 }
               },
-              child: const Text('Buy'),
+              child: const Text('Koop nu'),
             ),
           ],
         ),
